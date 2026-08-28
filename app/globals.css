@@ -1,0 +1,266 @@
+@import 'tailwindcss';
+
+/*
+ * PLAN §12 — Dirección visual: interfaz jurídica sobria, densa pero limpia.
+ * Tema claro por defecto (oficina, impresión). Dark opcional.
+ * Máx. 5 colores con significado consistente:
+ *   - fondo blanco hueso / texto gris muy oscuro
+ *   - primario azul marino profundo (confianza jurídica)
+ *   - ROJO reservado EXCLUSIVAMENTE a plazos de escritos y vencimientos
+ *   - ámbar para diligencias / avisos
+ */
+
+:root {
+  --background: hsl(40 22% 99%);
+  --foreground: hsl(222 18% 14%);
+
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(222 18% 14%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(222 18% 14%);
+
+  --primary: hsl(219 52% 26%);
+  --primary-foreground: hsl(210 40% 98%);
+
+  --secondary: hsl(220 16% 94%);
+  --secondary-foreground: hsl(222 20% 20%);
+
+  --muted: hsl(220 16% 95%);
+  --muted-foreground: hsl(220 10% 42%);
+
+  --accent: hsl(220 16% 93%);
+  --accent-foreground: hsl(222 20% 18%);
+
+  /* Rojo: SOLO plazos de escritos y vencimientos (significado fijo, §12) */
+  --destructive: hsl(0 68% 44%);
+  --destructive-foreground: hsl(0 0% 100%);
+
+  /* Ámbar: diligencias / avisos */
+  --warning: hsl(35 92% 45%);
+  --warning-foreground: hsl(30 40% 12%);
+
+  --border: hsl(220 16% 88%);
+  --input: hsl(220 16% 86%);
+  --ring: hsl(219 52% 40%);
+
+  /* Codificación fija de eventos del calendario (§4.1) */
+  --evento-escrito: var(--destructive);
+  --evento-audiencia: var(--primary);
+  --evento-diligencia: var(--warning);
+
+  --radius: 0.5rem;
+}
+
+/* Paleta oscura (compartida por el toggle explícito y la preferencia del SO) */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+:root[data-theme='dark'] {
+  --background: hsl(222 20% 9%);
+  --foreground: hsl(210 20% 92%);
+  --card: hsl(222 20% 12%);
+  --card-foreground: hsl(210 20% 92%);
+  --popover: hsl(222 20% 12%);
+  --popover-foreground: hsl(210 20% 92%);
+  --primary: hsl(214 70% 62%);
+  --primary-foreground: hsl(222 40% 12%);
+  --secondary: hsl(222 16% 18%);
+  --secondary-foreground: hsl(210 20% 92%);
+  --muted: hsl(222 16% 17%);
+  --muted-foreground: hsl(220 12% 62%);
+  --accent: hsl(222 16% 20%);
+  --accent-foreground: hsl(210 20% 92%);
+  --destructive: hsl(0 62% 55%);
+  --destructive-foreground: hsl(0 0% 100%);
+  --warning: hsl(35 85% 58%);
+  --warning-foreground: hsl(30 40% 10%);
+  --border: hsl(222 14% 24%);
+  --input: hsl(222 14% 26%);
+  --ring: hsl(214 70% 55%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --background: hsl(222 20% 9%);
+    --foreground: hsl(210 20% 92%);
+    --card: hsl(222 20% 12%);
+    --card-foreground: hsl(210 20% 92%);
+    --popover: hsl(222 20% 12%);
+    --popover-foreground: hsl(210 20% 92%);
+    --primary: hsl(214 70% 62%);
+    --primary-foreground: hsl(222 40% 12%);
+    --secondary: hsl(222 16% 18%);
+    --secondary-foreground: hsl(210 20% 92%);
+    --muted: hsl(222 16% 17%);
+    --muted-foreground: hsl(220 12% 62%);
+    --accent: hsl(222 16% 20%);
+    --accent-foreground: hsl(210 20% 92%);
+    --destructive: hsl(0 62% 55%);
+    --destructive-foreground: hsl(0 0% 100%);
+    --warning: hsl(35 85% 58%);
+    --warning-foreground: hsl(30 40% 10%);
+    --border: hsl(222 14% 24%);
+    --input: hsl(222 14% 26%);
+    --ring: hsl(214 70% 55%);
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-evento-escrito: var(--evento-escrito);
+  --color-evento-audiencia: var(--evento-audiencia);
+  --color-evento-diligencia: var(--evento-diligencia);
+
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+
+  --font-sans:
+    var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+    Roboto, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, 'SF Mono', monospace;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    background-color: var(--color-background);
+    color-scheme: light dark;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* Editor: hoja blanca con tinta negra, independiente del tema oscuro. */
+.pagina-escrito {
+  color-scheme: light;
+  background: #fff;
+  color: #000;
+}
+.pagina-escrito .tiptap,
+.pagina-escrito .ProseMirror {
+  min-height: 70vh;
+  outline: none;
+  color: #000;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 12pt;
+  line-height: var(--interlineado, 1.5);
+}
+.pagina-escrito .ProseMirror p,
+.pagina-escrito .ProseMirror li,
+.pagina-escrito .ProseMirror td,
+.pagina-escrito .ProseMirror th,
+.pagina-escrito .ProseMirror span,
+.pagina-escrito .ProseMirror a {
+  color: #000;
+}
+.pagina-escrito .ProseMirror p {
+  margin: 0 0 0.65em;
+}
+.pagina-escrito .ProseMirror h1,
+.pagina-escrito .ProseMirror h2,
+.pagina-escrito .ProseMirror h3 {
+  color: #000;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0.8em 0 0.4em;
+}
+.pagina-escrito .ProseMirror table {
+  border-collapse: collapse;
+  margin: 0.8em 0;
+  width: 100%;
+}
+.pagina-escrito .ProseMirror th,
+.pagina-escrito .ProseMirror td {
+  border: 1px solid #c4c4c4;
+  padding: 0.35em 0.55em;
+  vertical-align: top;
+}
+.pagina-escrito .ProseMirror img {
+  height: auto;
+  max-width: 100%;
+}
+.pagina-escrito .ProseMirror p.is-editor-empty:first-child::before {
+  color: #9ca3af;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Sugerencias de IA en el editor (estilo Cursor: fantasma hasta aceptar) */
+.pagina-escrito .sugerencia-ia-pendiente {
+  color: hsl(219 52% 36%);
+  opacity: 0.52;
+  white-space: pre-wrap;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 12pt;
+  line-height: var(--interlineado, 1.5);
+  pointer-events: none;
+  user-select: none;
+}
+.pagina-escrito .sugerencia-ia-original {
+  background: hsl(219 40% 94%);
+  opacity: 0.5;
+  text-decoration: line-through;
+  text-decoration-color: hsl(219 30% 55%);
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 2.5cm;
+  }
+  body {
+    background: #fff;
+  }
+  aside,
+  header,
+  .no-print {
+    display: none !important;
+  }
+  main {
+    display: block !important;
+    overflow: visible !important;
+  }
+  .pagina-escrito {
+    max-width: none !important;
+    min-height: auto !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    width: 100% !important;
+  }
+  .pagina-escrito .ProseMirror,
+  .pagina-escrito .tiptap {
+    min-height: 0 !important;
+  }
+  .sugerencia-ia-pendiente,
+  .sugerencia-ia-original {
+    display: none !important;
+  }
+}

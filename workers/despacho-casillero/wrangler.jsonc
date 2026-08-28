@@ -1,0 +1,13 @@
+{
+  "name": "despacho-casillero",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-27",
+  "account_id": "ed2407f799894e48ad20ed5f6098456a",
+  "workers_dev": true,
+  "kv_namespaces": [
+    {
+      "binding": "CASILLERO",
+      "id": "52603ade01ec4a9ba502ab2bd8ba474d"
+    }
+  ]
+}

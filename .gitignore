@@ -1,0 +1,44 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+
+# next
+/.next/
+/out/
+next-env.d.ts
+
+# production
+/dist
+*.tsbuildinfo
+
+# datos locales (nunca versionar la BD ni los backups ni los documentos subidos)
+/data/*.db
+/data/*.db-shm
+/data/*.db-wal
+/data/*.db-journal
+/data/backups/
+/storage/*
+!/storage/.gitkeep
+
+# logs
+/logs/
+*.log
+
+# env
+.env
+.env.local
+.env*.local
+
+# worker del casillero (outbite.app) — artefactos locales
+/workers/**/node_modules
+/workers/**/.wrangler
+
+# editor / OS
+.DS_Store
+*.pem
+.vscode/
+.idea/
+
+# testing
+/coverage
